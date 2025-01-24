@@ -31,7 +31,7 @@ samples, guidance on mobile development, and a full API reference.
 -- resources: views and styles per views  
 |----- styles: styles per views  
 |----- views: view  
--- shared: views and styles per views  
+-- shared: reusable   
 |----- component: reusable Widget  
 |----- constants: system's constants  
 |----- utils: reusable function per 1 or n page   
