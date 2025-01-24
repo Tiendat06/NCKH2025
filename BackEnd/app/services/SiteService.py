@@ -1,3 +1,4 @@
+from app.repository.SiteRepository import SiteRepository
 
 class SiteService:
     def __init__(self):

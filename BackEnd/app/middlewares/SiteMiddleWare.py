@@ -5,4 +5,5 @@ class SiteMiddleWare:
         pass
 
     def index(self):
+        # preprocessing data
         return SiteController().index()
