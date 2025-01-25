@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:frontend/app/controllers/home_controller.dart';
+import 'package:frontend/app/models/user_model.dart';
 import 'package:frontend/resources/views/layouts/main_layouts.dart';
 import 'home_list_users_view.dart';
 
@@ -12,22 +13,47 @@ class HomeView extends StatefulWidget{
 }
 
 class _HomeViewState extends State<HomeView>{
+  final HomeController homeController = HomeController();
+  List<UserModel> userList = [];
+
+  Future<List<UserModel>> loadUsers() async{
+    return await homeController.index();
+  }
+
+  Future<void> deleteUser(UserModel user) async {
+    await homeController.deleteUserById(user.id);
+    setState(() {
+      loadUsers();
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadUsers();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final HomeController homeController = HomeController();
-
     return MainLayout(
-        content: SingleChildScrollView(
+        content: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FutureBuilder(
-                  future: homeController.index(),
-                  builder: (context, snapshot) => getUserListView(context, snapshot)
-              )
+              FutureBuilder<List<UserModel>>(
+                  future: loadUsers(),
+                  builder: (context, snapshot) => getUserListView(context, snapshot, deleteUser)
+              ),
             ],
           ),
         ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            Navigator.pushNamed(context, '/add-user');
+          },
+          child: Icon(Icons.add)
+      ),
     );
   }
 }

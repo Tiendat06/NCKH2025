@@ -11,4 +11,9 @@ class UserService{
     // print('Data: $data');
     return (data as List).map((item) => UserModel.fromJson(item)).toList();
   }
+
+  Future<bool> deleteUserById(String id) async{
+    var rawData = await userRepository.deleteUserById(id);
+    return rawData["status"];
+  }
 }

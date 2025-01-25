@@ -9,4 +9,9 @@ class HomeController{
     // print('User List: $userList');
     return userList;
   }
+
+  Future<bool> deleteUserById(String id) async {
+    print('ID: $id');
+    return await userService.deleteUserById(id);
+  }
 }
